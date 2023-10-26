@@ -1,4 +1,5 @@
 import { IsString, IsNotEmpty, IsNumber } from "class-validator"
+import { minimumLevel } from "../types"
 
 export class AddQuestDto {
 
@@ -17,6 +18,6 @@ export class AddQuestDto {
     @IsNumber()
     minPlayers: number
 
-
+    minimumLevel: minimumLevel
 
 }
