@@ -2,22 +2,28 @@ import { Injectable } from "@nestjs/common";
 import { AddQuestDto } from "./dto/addQuest.dto";
 import { Quest } from './entity/quest.entity'
 import { InjectRepository } from "@nestjs/typeorm";
+import { QuestRepository } from "./quest.repository";
 import { Repository } from "typeorm";
 
 
 @Injectable()
 export class QuestService {
     constructor(
+        // @InjectRepository(QuestRepository)
+        // private questRepository: QuestRepository,
+
         @InjectRepository(Quest)
-        public quest: Repository<Quest>
+        private quest: Repository<Quest>
     ) {}
 
     async getQuestList() {
-        return this.quest.find()
+        return await this.quest.find();
     }
 
     async addQuest(dto: AddQuestDto) {
-        return this.quest.create(dto)
+        console.log(dto)
+        return await this.quest.save(dto);
+        // return 'success'
     }
 
     async getQuestById(questId: number) {

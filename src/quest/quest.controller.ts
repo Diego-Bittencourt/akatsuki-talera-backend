@@ -10,13 +10,19 @@ export class QuestController {
     constructor(private questService: QuestService) {}
 
 
+    @Get()
+    getTest() {
+        return 'testing'
+    }
+
+
     @Get('list')
     getQuestList() {
         return this.questService.getQuestList()
     }
 
     @Post('list')
-    addQuest(@Body() dto: AddQuestDto) {
-        return this.questService.addQuest(dto)
+    async addQuest(@Body() dto: AddQuestDto) {
+        return await this.questService.addQuest(dto)
     }
 }
