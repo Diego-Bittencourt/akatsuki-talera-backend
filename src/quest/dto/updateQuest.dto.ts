@@ -1,6 +1,10 @@
-import { IsString, IsNotEmpty, IsNumber } from "class-validator"
+import { IsNotEmpty, IsString, IsNumber } from "class-validator"
 
-export class AddQuestDto {
+export class UpdateQuestDto {
+
+    @IsNumber()
+    @IsNotEmpty()
+    questId: number
 
     @IsNotEmpty()
     @IsString()

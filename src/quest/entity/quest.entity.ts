@@ -10,7 +10,7 @@ export class Quest extends BaseEntity {
     @Column()
     questName: string
 
-    @Column()
+    @Column({unique: true})
     questSection: string
 
     @Optional()
@@ -33,4 +33,8 @@ export class Quest extends BaseEntity {
     @Optional()
     @Column({nullable: true})
     levelRecommendedDruid: number
+
+    @Optional()
+    @Column({nullable: true})
+    spoilerLink: string
 }
