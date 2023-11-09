@@ -1,5 +1,7 @@
 import { Optional } from "@nestjs/common"
 import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm"
+import { numberOfPlayers } from "../../types/numberOfPlayers"
+import { minimumLevel } from "../../types/minimumLevel"
 
 @Entity()
 export class Quest extends BaseEntity {
@@ -18,21 +20,11 @@ export class Quest extends BaseEntity {
     timeToFinnish: number 
     //minutes
 
-    @Optional()
-    @Column({nullable: true})
-    levelRecommendedKnight: number
-
-    @Optional()
-    @Column({nullable: true})
-    levelRecommendedPaladin: number
-
-    @Optional()
-    @Column({nullable: true})
-    levelRecommendedSorcerer: number
-
-    @Optional()
-    @Column({nullable: true})
-    levelRecommendedDruid: number
+    @Column()
+    numberOfPlayers: numberOfPlayers
+    
+    @Column()
+    minimumLevel: minimumLevel
 
     @Optional()
     @Column({nullable: true})
