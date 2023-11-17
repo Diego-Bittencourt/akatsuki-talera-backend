@@ -1,19 +1,19 @@
 import { Column } from "typeorm"
 
-export class numberOfPlayers {
+export class Team {
 
-    @Column()
-    minPlayers: number
+    @Column({nullable: true})
+    Min: number
 
-    @Column()
-    maxPlayers: number | null
+    @Column({nullable: true})
+    Max: number
 
-    @Column()
-    blokers: number
+    @Column({default: 0})
+    Blokers: number
 
-    @Column()
-    healers: number
+    @Column({default: 0})
+    Healers: number
 
-    @Column()
-    shooters: number
+    @Column({default: 0})
+    Shooters: number
 }

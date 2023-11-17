@@ -1,6 +1,6 @@
-import { minimumLevel } from "../../types/minimumLevel"
+import { Level } from "../../types/minimumLevel"
 import { IsNotEmpty, IsString, IsNumber } from 'class-validator'
-import { numberOfPlayers } from "../../types/numberOfPlayers"
+import { Team } from "../../types/numberOfPlayers"
 
 export class UpdateBossDto {
 
@@ -18,13 +18,13 @@ export class UpdateBossDto {
     //minutes
 
     @IsNotEmpty()
-    numberOfPlayers: numberOfPlayers
+    numberOfPlayers: Team
 
     @IsString()
     spoilerLink: string
     
     @IsNotEmpty()
-    minimumLevel: minimumLevel
+    minimumLevel: Level
 }
 
 

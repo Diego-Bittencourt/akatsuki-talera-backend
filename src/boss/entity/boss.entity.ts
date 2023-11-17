@@ -1,6 +1,6 @@
 import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-import { numberOfPlayers } from '../../types/numberOfPlayers';
-import { minimumLevel } from '../../types/minimumLevel';
+import { Team } from '../../types/numberOfPlayers';
+import { Level } from '../../types/minimumLevel';
 
 
 @Entity()
@@ -16,12 +16,12 @@ export class Boss extends BaseEntity {
     estimatedTime: number 
     //minutes
 
-    @Column(() => numberOfPlayers)
-    numberOfPlayers: numberOfPlayers
+    @Column(() => Team)
+    team: Team
     
-    @Column(() => minimumLevel)
-    minimumLevel: minimumLevel
+    @Column(() => Level)
+    level: Level
 
-    @Column()
+    @Column({nullable: true})
     spoilerLink: string
 }

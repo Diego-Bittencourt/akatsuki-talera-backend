@@ -1,17 +1,17 @@
 import { Column } from 'typeorm'
 
-export class minimumLevel {
+export class Level {
 
-    @Column()
-    knightLvl: number
+    @Column({default: 8})
+    Knight: number
 
-    @Column()
-    paladinLvl: number
+    @Column({default: 8})
+    Paladin: number
 
-    @Column()
-    sorcererLvl: number
+    @Column({default: 8})
+    Sorcerer: number
 
-    @Column()
-    druidLvl: number
+    @Column({default: 8})
+    Druid: number
 }
 
