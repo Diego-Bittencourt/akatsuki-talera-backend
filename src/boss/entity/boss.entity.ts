@@ -16,10 +16,10 @@ export class Boss extends BaseEntity {
     estimatedTime: number 
     //minutes
 
-    @Column()
+    @Column(() => numberOfPlayers)
     numberOfPlayers: numberOfPlayers
     
-    @Column()
+    @Column(() => minimumLevel)
     minimumLevel: minimumLevel
 
     @Column()

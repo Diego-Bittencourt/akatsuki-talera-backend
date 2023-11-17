@@ -20,10 +20,10 @@ export class Quest extends BaseEntity {
     timeToFinnish: number 
     //minutes
 
-    @Column()
+    @Column(() => numberOfPlayers)
     numberOfPlayers: numberOfPlayers
     
-    @Column()
+    @Column(() => minimumLevel)
     minimumLevel: minimumLevel
 
     @Optional()
