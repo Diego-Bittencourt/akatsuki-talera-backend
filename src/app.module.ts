@@ -5,12 +5,14 @@ import { TypeOrmModuleConfig } from './types/types'
 import { QuestModule } from './quest/quest.module';
 import { Quest } from './quest/entity/quest.entity';
 import { DataSource } from 'typeorm';
+import { BossModule } from './boss/boss.module';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot(TypeOrmModuleConfig),
     onlinePlayersModule,
-    QuestModule
+    QuestModule,
+    BossModule
   ],
   controllers: [],
   providers: [],
