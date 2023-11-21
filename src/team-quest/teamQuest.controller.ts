@@ -13,11 +13,22 @@ export class TeamQuestController {
 
     @Post('create')
     async createTeamQuest(@Body() dto: CreateTeamQuestDto) {
-        return this.teamQuestService.createTeamQuest(dto);
+        return await this.teamQuestService.createTeamQuest(dto);
     }
 
     @Post('add-player')
-    async addPlayerToTeamQuest(@Body('id') id: number, @Body('player') player: string) {
-        return this.teamQuestService.addPlayerToTeamQuest(id, player)
+    async addPlayerToTeamQuest(@Body('id') id: number, @Body('player') player: string, @Body('position') position: string) {
+        return await this.teamQuestService.addPlayerToTeamQuest(id, player, position)
     }
+
+    @Post('update-date')
+    async changeDate(@Body('id') id: number, @Body('new-date') newDate: string) {
+        return await this.teamQuestService.changeDate(id, newDate)
+    }
+
+    @Delete('player') 
+    async removePlayer(@Body('id') id: number, @Body('player') player: string) {
+        return await this.teamQuestService.removePlayer(id, player);
+    }
+    
 }

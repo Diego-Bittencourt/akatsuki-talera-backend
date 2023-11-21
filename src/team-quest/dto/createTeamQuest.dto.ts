@@ -1,4 +1,5 @@
-import { IsArray, IsDate, IsNumber, IsString } from "class-validator";
+import { IsArray, IsNumber, IsObject, IsString } from "class-validator";
+import { TeamPlayers } from "../../types/teamPlayers";
 
 export class CreateTeamQuestDto {
 
@@ -9,8 +10,8 @@ export class CreateTeamQuestDto {
     @IsString()
     date: string
 
-    @IsArray()
-    teamMembers: string[]
+    @IsObject()
+    teamMembers: TeamPlayers
 
     @IsString()
     notes: string

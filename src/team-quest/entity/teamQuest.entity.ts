@@ -16,7 +16,13 @@ export class TeamQuest extends BaseEntity {
     //utc in server, changed to local in front
 
     @Column({type: "json"})
-    teamMembers: string
+    blokers: string
+
+    @Column({type: "json"})
+    healers: string
+
+    @Column({type: "json"})
+    shooters: string
 
     @Column({nullable: true})
     notes: string

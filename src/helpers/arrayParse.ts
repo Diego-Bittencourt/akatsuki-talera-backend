@@ -6,7 +6,6 @@ export function arrayParse(object: string) : string[]{
         throw new ForbiddenException('Data type is wrong in the arrayParse')
     }
 
-    console.log("eita", typeof object, object)
     const objectParsed = JSON.parse(object);
 
     const array = []
