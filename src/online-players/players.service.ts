@@ -34,7 +34,7 @@ export class PlayersService {
           return res.data?.characters.character;
         }),
       );
-
+        console.log(playerName)
     const { name, vocation, level } = await lastValueFrom(data);
     return { name, vocation, level };
   }

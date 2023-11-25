@@ -1,10 +1,13 @@
-import { Controller, Get, Post, Body, Patch, Delete, Query } from "@nestjs/common";
+import { Controller, Get, Post, Body, Patch, Delete, Query, Param } from "@nestjs/common";
 import { TeamQuestService } from "./teamQuest.service";
 import { CreateTeamQuestDto } from "./dto/createTeamQuest.dto";
+import { PlayersService } from "../online-players/players.service";
 
 @Controller('team-quest')
 export class TeamQuestController {
-    constructor(private teamQuestService: TeamQuestService) {}
+    constructor(
+        private teamQuestService: TeamQuestService
+        ) {}
 
     @Get('list')
     async getTeamQuestList() {
@@ -29,6 +32,11 @@ export class TeamQuestController {
     @Delete('player') 
     async removePlayer(@Body('id') id: number, @Body('player') player: string) {
         return await this.teamQuestService.removePlayer(id, player);
+    }
+
+    @Get(':id')
+    async findQuestById(@Param() params: any) {
+        return await this.teamQuestService.findQuestById(params.id)
     }
     
 }

@@ -6,7 +6,8 @@ import { HttpModule } from "@nestjs/axios";
 @Module({
     imports: [HttpModule],
     controllers: [PlayersController],
-    providers: [PlayersService]
+    providers: [PlayersService],
+    exports: [PlayersService]
 })
 
 export class PlayersModule {}

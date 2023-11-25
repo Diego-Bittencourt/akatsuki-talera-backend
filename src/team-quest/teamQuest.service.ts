@@ -1,17 +1,20 @@
-import { ForbiddenException, Injectable } from '@nestjs/common';
+import { ForbiddenException, Inject, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { TeamQuest } from "./entity/teamQuest.entity"
 import { Repository } from 'typeorm';
 import { CreateTeamQuestDto } from './dto/createTeamQuest.dto';
-import { ExceptionsHandler } from '@nestjs/core/exceptions/exceptions-handler';
 import { arrayParse } from '../helpers/arrayParse';
+import { PlayersService } from '../online-players/players.service';
+import { isNumber } from 'class-validator';
 
 
 @Injectable()
 export class TeamQuestService {
     constructor(
         @InjectRepository(TeamQuest)
-        private teamQuest: Repository<TeamQuest>
+        private teamQuest: Repository<TeamQuest>,
+        @Inject(PlayersService)
+        private playerService: PlayersService
     ) {}
 
     async getTeamQuestList() {
@@ -29,12 +32,18 @@ export class TeamQuestService {
             shooters: JSON.stringify(teamMembers.shooters),
             notes
         }
-        console.log(data)
         return await this.teamQuest.save(data)
     }
 
     async addPlayerToTeamQuest(id: number, player: string, position: string) {
         const teamQuest = await this.teamQuest.findOne({where: { id }});
+
+        const playerExists = await this.playerService.playerInfo(player);
+
+        if (playerExists?.level === 0 ||
+            playerExists?.name === "") {
+                throw new ForbiddenException('Player não existe.')
+            }
 
         if (!teamQuest) {
             throw new ForbiddenException('Time não encontrado.');
@@ -80,11 +89,9 @@ export class TeamQuestService {
     async removePlayer(id: number, player: string) {
         const team = await this.teamQuest.findOne({where: {id}});
 
-        console.log(team)
         const healers = arrayParse(team.healers)
         const blokers = arrayParse(team.blokers)
         const shooters = arrayParse(team.shooters)
-        console.log(blokers)
 
         const filteredHealers = healers.filter((p) => p !== player)
         const filteresBlokers = blokers.filter((p) => p !== player)
@@ -97,6 +104,50 @@ export class TeamQuestService {
             blokers: JSON.stringify(filteresBlokers),
             shooters: JSON.stringify(filteredShooters)
         });
+    }
+
+    async findQuestById(itemId: number) {
+        const quest = await this.teamQuest.findOne({
+            where: {
+                id: itemId
+            }
+        })
+
+        const {id, questId, date, notes} = quest
+
+        const healers = arrayParse(quest.healers)
+        const blokers = arrayParse(quest.blokers)
+        const shooters = arrayParse(quest.shooters)
+
+        const fullHealers = await Promise.all(healers.map(async (player) => {
+            console.log(player)
+            return await this.playerService.playerInfo(player)
+        }))
+
+        const fullBlokers = await Promise.all(blokers.map(async (player) => {
+            return await this.playerService.playerInfo(player)
+        }))
+
+        const fullShooters = await Promise.all(shooters.map(async (player) => {
+            return await this.playerService.playerInfo(player)
+        }))
+
+        return {
+            id,
+            questId,
+            notes,
+            date,
+            team: {
+                shooters: fullShooters,
+                healers: fullHealers,
+                blokers: fullBlokers
+            }
+        }
+
+
+        
+
+
     }
     
 }
