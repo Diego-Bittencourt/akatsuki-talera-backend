@@ -2,9 +2,9 @@ import { ForbiddenException, Injectable } from '@nestjs/common';
 import { AddQuestDto } from './dto/addQuest.dto';
 import { Quest } from './entity/quest.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-import { QuestRepository } from './quest.repository';
 import { Repository } from 'typeorm';
 import { UpdateQuestDto } from './dto/updateQuest.dto';
+import { QuestIdDto } from './dto/questId.dto';
 
 @Injectable()
 export class QuestService {
@@ -36,10 +36,12 @@ export class QuestService {
     // return 'success'
   }
 
-  async getQuestById(questId: number) {
+  async getQuestById(questId: QuestIdDto) {
+
+    const { id } = questId
     return this.quest.find({
       where: {
-        id: questId,
+        id
       },
     });
   }

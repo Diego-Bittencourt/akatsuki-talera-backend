@@ -7,9 +7,9 @@ export class PlayersController {
     constructor(private playersService: PlayersService) {}
 
     @Get('online')
-    getOnlinePlayers(@Query('guildName') guildName: string | null) {
+    async getOnlinePlayers(@Query('guildName') guildName: string | null) {
 
-        return this.playersService.getPlayersOnline(guildName || 'akatsuki')
+        return await this.playersService.getPlayersOnline(guildName || 'akatsuki')
     }
 
     @Get()

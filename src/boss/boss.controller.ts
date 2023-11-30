@@ -2,6 +2,7 @@ import { Controller, Query, Body, Get, Post, Patch, Delete } from "@nestjs/commo
 import { CreateBossDto } from "./dto/createBoss.dto";
 import { UpdateBossDto } from "./dto/updateBoss.dto";
 import { BossService } from "./boss.service";
+import { BossIdDto } from "./dto/bossId.dto";
 
 
 
@@ -10,7 +11,7 @@ export class BossController {
     constructor(private bossService: BossService) {}
 
     @Get()
-    async getBossById(@Query('id') id: number) {
+    async getBossById(@Query() id: BossIdDto) {
         return await this.bossService.getBossById(id);
     }
 

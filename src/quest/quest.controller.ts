@@ -2,6 +2,7 @@ import { Controller, Get, Body, Post, Patch, Delete, Query } from "@nestjs/commo
 import { QuestService } from "./quest.service";
 import { AddQuestDto } from "./dto/addQuest.dto";
 import { UpdateQuestDto } from "./dto/updateQuest.dto";
+import { QuestIdDto } from "./dto/questId.dto";
 
 
 
@@ -11,7 +12,7 @@ export class QuestController {
     constructor(private questService: QuestService) {}
 
     @Get()
-    async getQuestById(@Query('id') id: number) {
+    async getQuestById(@Query('id') id: QuestIdDto) {
         return await this.questService.getQuestById(id)
     }
 

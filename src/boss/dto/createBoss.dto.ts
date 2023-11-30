@@ -18,7 +18,7 @@ export class CreateBossDto {
     team: Team
     
     @IsNotEmpty()
-    minimumLevel: Level
+    level: Level
 
     @IsString()
     @IsOptional()

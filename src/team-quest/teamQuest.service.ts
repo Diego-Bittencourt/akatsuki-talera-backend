@@ -18,7 +18,7 @@ export class TeamQuestService {
     ) {}
 
     async getTeamQuestList() {
-        return 'team quest list'
+        return this.teamQuest.find()
     }
 
     async createTeamQuest(dto: CreateTeamQuestDto) {
