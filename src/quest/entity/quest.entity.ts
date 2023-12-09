@@ -1,7 +1,7 @@
 import { Optional } from "@nestjs/common"
 import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm"
-import { Team } from "../../types/numberOfPlayers"
-import { Level } from "../../types/minimumLevel"
+import { Team } from "../../types/team"
+import { Level } from "../../types/level"
 import { TeamQuest } from "../../team-quest/entity/teamQuest.entity"
 
 @Entity()

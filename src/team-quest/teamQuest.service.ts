@@ -1,11 +1,13 @@
 import { ForbiddenException, Inject, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { TeamQuest } from "./entity/teamQuest.entity"
-import { Repository } from 'typeorm';
+import { Repository, getRepository } from 'typeorm';
 import { CreateTeamQuestDto } from './dto/createTeamQuest.dto';
 import { arrayParse } from '../helpers/arrayParse';
 import { PlayersService } from '../online-players/players.service';
 import { isNumber } from 'class-validator';
+import { Quest } from '../quest/entity/quest.entity';
+import { Connection } from 'mysql2/typings/mysql/lib/Connection';
 
 
 @Injectable()
@@ -14,11 +16,16 @@ export class TeamQuestService {
         @InjectRepository(TeamQuest)
         private teamQuest: Repository<TeamQuest>,
         @Inject(PlayersService)
-        private playerService: PlayersService
+        private playerService: PlayersService,
+        @InjectRepository(Quest)
+        private quest: Repository<Quest>
     ) {}
 
     async getTeamQuestList() {
-        return this.teamQuest.find()
+        // return this.teamQuest.find()
+        return await this.teamQuest.createQueryBuilder()
+                    // .innerJoinAndSelect('team.questId', 'quest')
+                    // .getMany()
     }
 
     async createTeamQuest(dto: CreateTeamQuestDto) {

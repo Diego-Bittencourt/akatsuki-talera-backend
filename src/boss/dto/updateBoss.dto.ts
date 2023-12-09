@@ -1,6 +1,6 @@
-import { Level } from "../../types/minimumLevel"
+import { Level } from "../../types/level"
 import { IsNotEmpty, IsString, IsNumber, IsOptional } from 'class-validator'
-import { Team } from "../../types/numberOfPlayers"
+import { Team } from "../../types/team"
 
 export class UpdateBossDto {
 

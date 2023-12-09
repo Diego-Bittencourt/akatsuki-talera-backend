@@ -6,8 +6,7 @@ import { IsNotEmpty, IsNumber } from 'class-validator'
 export class QuestIdDto {
 
 
-    @IsNotEmpty()
-    @Type(() => Number)
-    @IsNumber()
+    // @IsNotEmpty()
+    // @IsNumber()
     id: number
 }

@@ -1,6 +1,6 @@
 import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-import { Team } from '../../types/numberOfPlayers';
-import { Level } from '../../types/minimumLevel';
+import { Team } from '../../types/team';
+import { Level } from '../../types/level';
 
 
 @Entity()

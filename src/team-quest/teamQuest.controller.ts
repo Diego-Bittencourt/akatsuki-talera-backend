@@ -1,7 +1,6 @@
 import { Controller, Get, Post, Body, Patch, Delete, Query, Param } from "@nestjs/common";
 import { TeamQuestService } from "./teamQuest.service";
 import { CreateTeamQuestDto } from "./dto/createTeamQuest.dto";
-import { PlayersService } from "../online-players/players.service";
 
 @Controller('team-quest')
 export class TeamQuestController {
