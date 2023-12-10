@@ -34,6 +34,5 @@ export class Quest extends BaseEntity {
     @Column({nullable: true})
     spoilerLink: string
 
-    @OneToMany(() => TeamQuest, (teamQuest) => teamQuest.questId)
-    teamQuests: TeamQuest[]
+
 }

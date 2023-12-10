@@ -22,8 +22,10 @@ export class TeamQuestService {
     ) {}
 
     async getTeamQuestList() {
-        // return this.teamQuest.find()
-        return await this.teamQuest.createQueryBuilder()
+        return this.teamQuest.find({
+            relations: ['quest']
+        })
+        // return await this.teamQuest.createQueryBuilder()
                     // .innerJoinAndSelect('team.questId', 'quest')
                     // .getMany()
     }
@@ -31,13 +33,20 @@ export class TeamQuestService {
     async createTeamQuest(dto: CreateTeamQuestDto) {
         const {questId, date, teamMembers, notes} = dto;
 
+        const quest = await this.quest.findOne({
+            where: {
+                id: questId
+            }
+        })
+
         const data = {
             questId,
             date: new Date(date),
             healers: JSON.stringify(teamMembers.healers),
             blokers: JSON.stringify(teamMembers.blokers),
             shooters: JSON.stringify(teamMembers.shooters),
-            notes
+            notes,
+            quest
         }
         return await this.teamQuest.save(data)
     }

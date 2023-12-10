@@ -27,7 +27,7 @@ export class TeamQuest extends BaseEntity {
     @Column({nullable: true})
     notes: string
 
-    @ManyToOne(() => Quest, (quest) => quest.teamQuests)
+    @ManyToOne(() => Quest)
     quest: Quest
 
 }
