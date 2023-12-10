@@ -16,6 +16,9 @@ export class Quest extends BaseEntity {
     @Column({unique: true})
     questSection: string
 
+    @Column()
+    type: string
+
     @Optional()
     @Column()
     timeToFinnish: number 

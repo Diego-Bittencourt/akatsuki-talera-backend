@@ -3,17 +3,17 @@ import { Column } from "typeorm"
 export class Team {
 
     @Column({nullable: true})
-    Min: number
+    min: number
 
     @Column({nullable: true})
-    Max: number
+    max: number
 
     @Column({default: 0, nullable: true})
-    Blokers: number
+    blokers: number
 
     @Column({default: 0, nullable: true})
-    Healers: number
+    healers: number
 
     @Column({default: 0, nullable: true})
-    Shooters: number
+    shooters: number
 }

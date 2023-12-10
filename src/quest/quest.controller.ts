@@ -2,7 +2,8 @@ import { Controller, Get, Body, Post, Patch, Delete, Query, Param } from "@nestj
 import { QuestService } from "./quest.service";
 import { AddQuestDto } from "./dto/addQuest.dto";
 import { UpdateQuestDto } from "./dto/updateQuest.dto";
-import { QuestIdDto } from "./dto/questId.dto";
+import { ChangeQuestTeam } from "./dto/changeQuestTeam.dto";
+import { ChangeQuestLevel } from "./dto/changeQuestLevel.dto";
 
 
 
@@ -29,6 +30,16 @@ export class QuestController {
     @Patch()
     async updateQuest(@Body() dto: UpdateQuestDto) {
         return await this.questService.updateQuest(dto)
+    }
+
+    @Patch()
+    async changeQuestTeam(@Body() dto: ChangeQuestTeam) {
+        return await this.questService.changeQuestTeam(dto)
+    }
+
+    @Patch()
+    async changeQuestLevel(@Body() dto: ChangeQuestLevel) {
+        return await this.questService.changeQuestLevel(dto)
     }
     
     @Delete() 

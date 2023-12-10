@@ -1,4 +1,4 @@
-import { IsString, IsNotEmpty, IsNumber, ValidateIf } from "class-validator"
+import { IsString, IsNotEmpty, IsNumber, ValidateIf, IsEnum } from "class-validator"
 
 export class AddQuestDto {
 
@@ -9,9 +9,12 @@ export class AddQuestDto {
     @IsString()
     questSection: string
 
-    @IsNotEmpty()
-    @IsString()
-    section: string
+    @IsEnum({
+        quest: 'quest',
+        boss: 'boss',
+        outro: 'outro'
+    })
+    type: string
 
     @IsNotEmpty()
     @IsNumber()

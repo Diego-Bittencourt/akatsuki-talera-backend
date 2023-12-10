@@ -10,6 +10,8 @@ import { BossIdDto } from "./dto/bossId.dto";
 export class BossController {
     constructor(private bossService: BossService) {}
 
+    // Maybe all boss functionality can be the same as quest. It has basically the same fields.
+
     @Get()
     async getBossById(@Query() id: BossIdDto) {
         return await this.bossService.getBossById(id);
