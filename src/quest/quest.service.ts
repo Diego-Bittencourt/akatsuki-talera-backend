@@ -20,11 +20,15 @@ export class QuestService {
   ) {}
 
   async getQuestList() {
-    return await this.quest.find();
+    return await this.quest.find({
+      where: {
+        type: 'quest'
+      }
+    });
   }
 
   async getQuestById(questId: number) {
-    return this.quest.findOne({
+    return await this.quest.findOne({
       where: {
         id: questId,
       },
@@ -47,6 +51,7 @@ export class QuestService {
       questName: dto.questName,
       questSection: dto.questSection,
       timeToFinnish: dto.timeToFinnish,
+      type: 'quest',
       team: {
         min: dto.teamMin,
         max: dto.teamMax,
@@ -82,7 +87,7 @@ export class QuestService {
     const { questId } = dto;
     delete dto.questId;
 
-   if(this.doesQuestExist) { throw new ForbiddenException('Quest nao existe') }
+   if(await this.doesQuestExist(questId)) { throw new ForbiddenException('Quest nao existe') }
 
     return await this.quest.update(questId, {...dto});
   }
@@ -91,7 +96,7 @@ export class QuestService {
     const { questId } = dto;
     delete dto.questId;
 
-    if(this.doesQuestExist) { throw new ForbiddenException('Quest nao existe') }
+    if(await this.doesQuestExist(questId)) { throw new ForbiddenException('Quest nao existe') }
 
     return await this.quest.update(questId, {team: {...dto}})
 
@@ -101,18 +106,16 @@ export class QuestService {
     const { questId } = dto;
     delete dto.questId;
 
-    if(this.doesQuestExist) { throw new ForbiddenException('Quest nao existe') }
+    if(await this.doesQuestExist(questId)) { throw new ForbiddenException('Quest nao existe') }
 
     return await this.quest.update(questId, {level: {...dto}})
 
   }
 
   async deleteQuest(questId: number) {
-    const isValid = await this.quest.findOne({ where: { id: questId } });
+    
+    if(await this.doesQuestExist(questId)) { throw new ForbiddenException('Quest nao existe') }
 
-    if (!isValid?.id) {
-      throw new ForbiddenException('Quest nao existe');
-    }
     return await this.quest.delete({ id: questId });
   }
 }

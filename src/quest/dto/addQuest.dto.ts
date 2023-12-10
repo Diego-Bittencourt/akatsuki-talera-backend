@@ -9,13 +9,6 @@ export class AddQuestDto {
     @IsString()
     questSection: string
 
-    @IsEnum({
-        quest: 'quest',
-        boss: 'boss',
-        outro: 'outro'
-    })
-    type: string
-
     @IsNotEmpty()
     @IsNumber()
     teamMin: number

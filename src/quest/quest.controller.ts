@@ -22,22 +22,22 @@ export class QuestController {
         return await this.questService.getQuestList()
     }
 
-    @Post()
+    @Post('add')
     async addQuest(@Body() dto: AddQuestDto) {
         return await this.questService.addQuest(dto)
     }
 
-    @Patch()
+    @Patch('update')
     async updateQuest(@Body() dto: UpdateQuestDto) {
         return await this.questService.updateQuest(dto)
     }
 
-    @Patch()
+    @Patch('change-team')
     async changeQuestTeam(@Body() dto: ChangeQuestTeam) {
         return await this.questService.changeQuestTeam(dto)
     }
 
-    @Patch()
+    @Patch('change-level')
     async changeQuestLevel(@Body() dto: ChangeQuestLevel) {
         return await this.questService.changeQuestLevel(dto)
     }
