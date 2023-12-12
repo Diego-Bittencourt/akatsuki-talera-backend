@@ -1,6 +1,6 @@
 import { ForbiddenException } from "@nestjs/common";
 
-export function arrayParse(object: string) : string[]{
+export function arrayParse(object: string | string[]) : string[]{
     if (typeof object !== 'string') {
         // return ['wrong argument type'];
         throw new ForbiddenException('Data type is wrong in the arrayParse')

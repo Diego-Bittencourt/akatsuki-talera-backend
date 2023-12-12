@@ -37,5 +37,10 @@ export class TeamQuestController {
     async findQuestById(@Param() params: any) {
         return await this.teamQuestService.findQuestById(params.id)
     }
+
+    @Delete(':id')
+    async deleteTeamQuestById(@Param() params: any) {
+        return await this.teamQuestService.deleteTeamQuestById(params.id)
+    }
     
 }
