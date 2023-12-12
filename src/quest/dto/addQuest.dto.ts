@@ -1,4 +1,4 @@
-import { IsString, IsNotEmpty, IsNumber } from "class-validator"
+import { IsString, IsNotEmpty, IsNumber, ValidateIf, IsEnum } from "class-validator"
 
 export class AddQuestDto {
 
@@ -10,12 +10,28 @@ export class AddQuestDto {
     questSection: string
 
     @IsNotEmpty()
-    @IsString()
-    section: string
+    @IsNumber()
+    teamMin: number
 
     @IsNotEmpty()
+    @ValidateIf((object, value) => value !== null)
     @IsNumber()
-    minPlayers: number
+    teamMax: number | null
+
+    @IsNotEmpty()
+    @ValidateIf((object, value) => value !== null)
+    @IsNumber()
+    teamBlokers: number | null
+
+    @IsNotEmpty()
+    @ValidateIf((object, value) => value !== null)
+    @IsNumber()
+    teamShooters: number | null
+
+    @IsNotEmpty()
+    @ValidateIf((object, value) => value !== null)
+    @IsNumber()
+    teamHealers: number | null
 
     @IsNotEmpty()
     @IsNumber()
@@ -23,16 +39,16 @@ export class AddQuestDto {
     //minutes
 
     @IsNumber()
-    levelRecommendedKnight: number
+    levelKnight: number
 
     @IsNumber()
-    levelRecommendedPaladin: number
+    levelPaladin: number
 
     @IsNumber()
-    levelRecommendedSorcerer: number
+    levelSorcerer: number
 
     @IsNumber()
-    levelRecommendedDruid: number
+    levelDruid: number
 
     @IsString()
     spoilerLink: string

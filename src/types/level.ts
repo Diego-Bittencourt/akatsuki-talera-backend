@@ -3,15 +3,15 @@ import { Column } from 'typeorm'
 export class Level {
 
     @Column({default: 8})
-    Knight: number
+    knight: number
 
     @Column({default: 8})
-    Paladin: number
+    paladin: number
 
     @Column({default: 8})
-    Sorcerer: number
+    sorcerer: number
 
     @Column({default: 8})
-    Druid: number
+    druid: number
 }
 

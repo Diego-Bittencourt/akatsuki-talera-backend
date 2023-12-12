@@ -1,7 +1,8 @@
 import { Optional } from "@nestjs/common"
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm"
-import { Team } from "../../types/numberOfPlayers"
-import { Level } from "../../types/minimumLevel"
+import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm"
+import { Team } from "../../types/team"
+import { Level } from "../../types/level"
+import { TeamQuest } from "../../team-quest/entity/teamQuest.entity"
 
 @Entity()
 export class Quest extends BaseEntity {
@@ -14,6 +15,9 @@ export class Quest extends BaseEntity {
 
     @Column({unique: true})
     questSection: string
+
+    @Column()
+    type: string
 
     @Optional()
     @Column()
@@ -29,4 +33,6 @@ export class Quest extends BaseEntity {
     @Optional()
     @Column({nullable: true})
     spoilerLink: string
+
+
 }

@@ -2,9 +2,12 @@ import { ForbiddenException, Injectable } from '@nestjs/common';
 import { AddQuestDto } from './dto/addQuest.dto';
 import { Quest } from './entity/quest.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-import { QuestRepository } from './quest.repository';
 import { Repository } from 'typeorm';
 import { UpdateQuestDto } from './dto/updateQuest.dto';
+import { QuestIdDto } from './dto/questId.dto';
+import { ChangeQuestTeam } from './dto/changeQuestTeam.dto';
+import { ChangeQuestLevel } from './dto/changeQuestLevel.dto';
+import { ExceptionsHandler } from '@nestjs/core/exceptions/exceptions-handler';
 
 @Injectable()
 export class QuestService {
@@ -17,7 +20,19 @@ export class QuestService {
   ) {}
 
   async getQuestList() {
-    return await this.quest.find();
+    return await this.quest.find({
+      where: {
+        type: 'quest'
+      }
+    });
+  }
+
+  async getQuestById(questId: number) {
+    return await this.quest.findOne({
+      where: {
+        id: questId,
+      },
+    });
   }
 
   async addQuest(dto: AddQuestDto) {
@@ -32,26 +47,75 @@ export class QuestService {
       throw new ForbiddenException('A quest ja foi registrada');
     }
 
-    return await this.quest.save(dto);
+    const newQuest = {
+      questName: dto.questName,
+      questSection: dto.questSection,
+      timeToFinnish: dto.timeToFinnish,
+      type: 'quest',
+      team: {
+        min: dto.teamMin,
+        max: dto.teamMax,
+        blokers: dto.teamBlokers,
+        healers: dto.teamHealers,
+        shooters: dto.teamShooters,
+      },
+      level: {
+        knight: dto.levelKnight,
+        druid: dto.levelDruid,
+        paladin: dto.levelPaladin,
+        sorcerer: dto.levelSorcerer,
+      },
+      spoilerLink: dto.spoilerLink,
+    };
+
+    return await this.quest.save(newQuest);
     // return 'success'
   }
 
-  async getQuestById(questId: number) {
-    return this.quest.find({
-      where: {
-        id: questId,
-      },
-    });
-  }
+ async doesQuestExist(id: number) {
+  const isValid = await this.quest.findOne({
+    where: {
+      id
+    },
+  });
+
+  return !isValid?.id
+
+ }
 
   async updateQuest(dto: UpdateQuestDto) {
-    const id = dto.questId;
-    const data = { ...dto };
-    delete data.questId;
-    return await this.quest.update(id, data);
+    const { questId } = dto;
+    delete dto.questId;
+
+   if(await this.doesQuestExist(questId)) { throw new ForbiddenException('Quest nao existe') }
+
+    return await this.quest.update(questId, {...dto});
   }
 
-  async deleteQuest(id: number) {
-    return await this.quest.delete({ id });
+  async changeQuestTeam(dto: ChangeQuestTeam) {
+    const { questId } = dto;
+    delete dto.questId;
+
+    if(await this.doesQuestExist(questId)) { throw new ForbiddenException('Quest nao existe') }
+
+    return await this.quest.update(questId, {team: {...dto}})
+
+  }
+
+  async changeQuestLevel(dto: ChangeQuestLevel) {
+    const { questId } = dto;
+    delete dto.questId;
+
+    if(await this.doesQuestExist(questId)) { throw new ForbiddenException('Quest nao existe') }
+
+    return await this.quest.update(questId, {level: {...dto}})
+
+  }
+
+  async deleteQuest(questId: number) {
+    
+    if(await this.doesQuestExist(questId)) { throw new ForbiddenException('Quest nao existe') }
+
+    return await this.quest.delete({ id: questId });
   }
 }

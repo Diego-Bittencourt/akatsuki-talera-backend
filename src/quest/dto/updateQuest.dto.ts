@@ -1,43 +1,33 @@
-import { IsNotEmpty, IsString, IsNumber } from "class-validator"
+import { IsNotEmpty, IsString, IsNumber, ValidateIf, IsEnum, IsOptional } from "class-validator"
 
 export class UpdateQuestDto {
 
-    @IsNumber()
     @IsNotEmpty()
+    @IsNumber()
     questId: number
 
-    @IsNotEmpty()
+    @IsOptional()
     @IsString()
     questName: string
 
+    @IsOptional()
+    @IsEnum({
+        quest: 'quest',
+        boss: 'boss',
+        outro: 'outro'
+    })
+    type: string
+
+    @IsOptional()
     @IsString()
     questSection: string
 
-    @IsNotEmpty()
-    @IsString()
-    section: string
-
-    @IsNotEmpty()
-    @IsNumber()
-    minPlayers: number
-
-    @IsNotEmpty()
+    @IsOptional()
     @IsNumber()
     timeToFinnish: number 
     //minutes
 
-    @IsNumber()
-    levelRecommendedKnight: number
-
-    @IsNumber()
-    levelRecommendedPaladin: number
-
-    @IsNumber()
-    levelRecommendedSorcerer: number
-
-    @IsNumber()
-    levelRecommendedDruid: number
-
+    @IsOptional()
     @IsString()
     spoilerLink: string
 }
