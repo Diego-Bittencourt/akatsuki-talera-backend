@@ -1,10 +1,10 @@
 import { IsNotEmpty, IsNumber } from "class-validator";
 
-export class ChangeQuestTeam {
+export class ChangeEventosTeam {
 
     @IsNotEmpty()
     @IsNumber()
-    questId: number
+    eventoId: number
 
     @IsNumber()
     min: number

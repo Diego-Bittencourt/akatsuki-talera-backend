@@ -1,26 +1,23 @@
 import { IsNotEmpty, IsString, IsNumber, ValidateIf, IsEnum, IsOptional } from "class-validator"
+import { eventoType } from "../../types/eventoType"
 
-export class UpdateQuestDto {
+export class UpdateEventosDto {
 
     @IsNotEmpty()
     @IsNumber()
-    questId: number
+    eventoId: number
 
     @IsOptional()
     @IsString()
-    questName: string
+    eventoName: string
 
     @IsOptional()
-    @IsEnum({
-        quest: 'quest',
-        boss: 'boss',
-        outro: 'outro'
-    })
+    @IsEnum(eventoType)
     type: string
 
     @IsOptional()
     @IsString()
-    questSection: string
+    eventoSection: string
 
     @IsOptional()
     @IsNumber()

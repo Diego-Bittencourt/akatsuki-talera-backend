@@ -3,11 +3,10 @@ import { Type } from 'class-transformer'
 import { IsNotEmpty, IsNumber } from 'class-validator'
 
 
-export class BossIdDto {
+export class EventoIdDto {
 
 
-    @IsNotEmpty()
-    @Type(() => Number)
-    @IsNumber()
+    // @IsNotEmpty()
+    // @IsNumber()
     id: number
 }

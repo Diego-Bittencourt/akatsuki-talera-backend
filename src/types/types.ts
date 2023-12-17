@@ -1,5 +1,6 @@
 import { TypeOrmModule } from "@nestjs/typeorm";
-import { Quest } from "../quest/entity/quest.entity";
+import { Evento } from "../eventos/entity/evento.entity";
+import { Team } from "../team/entity/team.entity";
 
 export const TypeOrmModuleConfig: TypeOrmModule = {
     type: 'mysql',
@@ -8,7 +9,7 @@ export const TypeOrmModuleConfig: TypeOrmModule = {
       username: process.env.MYSQL_USER|| 'root',
       password: process.env.MYSQL_PASSWORD || '123456',
       database: process.env.DB_NAME || 'akatsuki',
-      entities: [Quest],
+      entities: [Evento, Team],
       synchronize: true,
       autoLoadEntities: true
 }
