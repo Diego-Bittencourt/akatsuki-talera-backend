@@ -1,6 +1,6 @@
 import { Column } from "typeorm"
 
-export class Team {
+export class TeamComp {
 
     @Column({nullable: true})
     min: number

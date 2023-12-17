@@ -1,10 +1,10 @@
 import { IsNotEmpty, IsNumber } from "class-validator";
 
-export class ChangeQuestLevel {
+export class ChangeEventosLevel {
 
     @IsNotEmpty()
     @IsNumber()
-    questId: number
+    eventoId: number
 
     @IsNumber()
     knight: number

@@ -1,20 +1,20 @@
 import { Optional } from "@nestjs/common"
 import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm"
-import { Team } from "../../types/team"
+import { TeamComp } from "../../types/teamComp"
 import { Level } from "../../types/level"
-import { TeamQuest } from "../../team-quest/entity/teamQuest.entity"
+import { Team } from "../../team/entity/team.entity"
 
 @Entity()
-export class Quest extends BaseEntity {
+export class Evento extends BaseEntity {
 
     @PrimaryGeneratedColumn()
     id: number
 
     @Column()
-    questName: string
+    eventoName: string
 
     @Column({unique: true})
-    questSection: string
+    eventoSection: string
 
     @Column()
     type: string
@@ -24,8 +24,8 @@ export class Quest extends BaseEntity {
     timeToFinnish: number 
     //minutes
 
-    @Column(() => Team)
-    team: Team
+    @Column(() => TeamComp)
+    team: TeamComp
     
     @Column(() => Level)
     level: Level

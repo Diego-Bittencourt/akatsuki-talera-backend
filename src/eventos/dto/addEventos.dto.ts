@@ -1,13 +1,26 @@
 import { IsString, IsNotEmpty, IsNumber, ValidateIf, IsEnum } from "class-validator"
+import { eventoType } from "../../types/eventoType"
 
-export class AddQuestDto {
+export class AddEventosDto {
 
     @IsNotEmpty()
     @IsString()
-    questName: string
+    eventoName: string
 
     @IsString()
-    questSection: string
+    eventoSection: string
+
+    @IsNotEmpty()
+    @IsNumber()
+    timeToFinnish: number 
+    //minutes
+
+    @IsString()
+    spoilerLink: string
+
+    @IsString()
+    @IsEnum(eventoType)
+    type: string
 
     @IsNotEmpty()
     @IsNumber()
@@ -33,11 +46,6 @@ export class AddQuestDto {
     @IsNumber()
     teamHealers: number | null
 
-    @IsNotEmpty()
-    @IsNumber()
-    timeToFinnish: number 
-    //minutes
-
     @IsNumber()
     levelKnight: number
 
@@ -50,6 +58,4 @@ export class AddQuestDto {
     @IsNumber()
     levelDruid: number
 
-    @IsString()
-    spoilerLink: string
 }
