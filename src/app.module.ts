@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { PlayersModule } from './online-players/players.module';
+import { PlayersModule } from './players/players.module';
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { TypeOrmModuleConfig } from './types/types'
 import { EventosModule } from './eventos/eventos.module';

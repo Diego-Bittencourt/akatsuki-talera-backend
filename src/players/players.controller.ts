@@ -1,5 +1,6 @@
-import { Controller, Get, Query } from "@nestjs/common";
+import { Controller, Get, Query, Post, Body } from "@nestjs/common";
 import { PlayersService } from "./players.service";
+import { HighscoreDto } from "./dto/highscore.dto";
 
 
 @Controller('player')
@@ -9,11 +10,17 @@ export class PlayersController {
     @Get('online')
     async getOnlinePlayers(@Query('guildName') guildName: string | null) {
 
-        return await this.playersService.getPlayersOnline(guildName || 'akatsuki')
+        return await this.playersService.getPlayersOnline(guildName)
     }
 
     @Get()
     async getPlayerInfo(@Query('playerName') playerName: string) {
         return await this.playersService.playerInfo(playerName)
+    }
+
+    @Post('highscores')
+    async getGuildHighscores(@Body() highscore: HighscoreDto) {
+       return await this.playersService.getGuildHighscores(highscore)
+
     }
 } 
