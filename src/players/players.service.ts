@@ -1,6 +1,6 @@
 import { HttpService } from '@nestjs/axios';
 import { ForbiddenException, Injectable } from '@nestjs/common';
-import { catchError, lastValueFrom, map } from 'rxjs';
+import { Observable, catchError, lastValueFrom, map } from 'rxjs';
 import { HighscoreDto } from './dto/highscore.dto';
 
 @Injectable()
@@ -38,7 +38,7 @@ export class PlayersService {
       .get(`https://api.tibiadata.com/v4/character/${playerName}`)
       .pipe(
         map((res) => {
-          return res.data?.characters.character;
+          return res.data?.character.character;
         }),
       )
       
@@ -60,25 +60,28 @@ export class PlayersService {
 
     //there is an edge case in which the page 21 doesn't show for experience. fix this later
     if (category === 'experience') {
-      page.pop()
+      // page.pop()
     }
     const highscoreList =  await Promise.all(page.map(async (index) => {
       const highscorePage = await this.httpService.get(`https://api.tibiadata.com/v4/highscores/${world}/${category}/${vocacao}/${index}`)
       .pipe(
         map((res) => {
-          return res.data?.highscores?.highscore_list
+          const response = res.data?.highscores?.highscore_list ? res.data?.highscores?.highscore_list : []
+          return response
         })
       )
       .pipe(
-        catchError((err) => {
-          console.log(err)
-          return err
+        catchError(() => {
+          return new Observable((subscriber) => {
+            subscriber.next([]);
+            subscriber.complete();
+          })
         }),
       );
-
       const thePage = await lastValueFrom(highscorePage)
       return thePage
     }))
+
     const filteredList = []
     highscoreList.forEach(list => filteredList.push(...list))
           
@@ -87,5 +90,39 @@ export class PlayersService {
     return filteredList.filter(player => guildPlayersNames.includes(player.name))
     // return highscoreList;
     
+  }
+
+  async getGuildStatistics(guild: string | 'akatsuki') {
+    const guildPlayers = await this.getGuildPlayers(guild);
+
+    const vocacoes = {
+      knight: [],
+      druid: [],
+      paladin: [],
+      sorcerer: [],
+      noVocation: []
+    }
+
+    guildPlayers.forEach((player) => {
+      if(["Elder Druid", "Druid"].includes(player.vocation)) {
+        vocacoes.druid.push(player)
+      }
+      else if (["Elite Knight", "Knight"].includes(player.vocation)) {
+        vocacoes.knight.push(player)
+      }
+      else if (["Royal Paladin", "Paladin"].includes(player.vocation)) {
+        vocacoes.paladin.push(player)
+      }
+      else if (["Master Sorcerer", "Sorcerer"].includes(player.vocation)) {
+        vocacoes.sorcerer.push(player)
+      } else {
+        vocacoes.noVocation.push(player)
+      }
+    })
+
+    return vocacoes
+
+
+
   }
 }
