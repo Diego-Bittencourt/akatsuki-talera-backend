@@ -4,7 +4,7 @@ import { Team } from "./entity/team.entity"
 import { Repository } from 'typeorm';
 import { CreateTeamDto } from './dto/createTeam.dto';
 import { arrayParse } from '../helpers/arrayParse';
-import { PlayersService } from '../online-players/players.service';
+import { PlayersService } from '../players/players.service';
 import { isNumber } from 'class-validator';
 import { Evento } from '../eventos/entity/evento.entity';
 import { Connection } from 'mysql2/typings/mysql/lib/Connection';

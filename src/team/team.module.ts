@@ -3,8 +3,8 @@ import { TypeOrmModule } from "@nestjs/typeorm";
 import { Team } from "./entity/team.entity";
 import { TeamController } from "./team.controller";
 import { TeamService } from "./team.service";
-import { PlayersService } from "../online-players/players.service";
-import { PlayersModule } from "../online-players/players.module";
+import { PlayersService } from "../players/players.service";
+import { PlayersModule } from "../players/players.module";
 import { EventosModule } from "../eventos/eventos.module";
 
 @Module({
