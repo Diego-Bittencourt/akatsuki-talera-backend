@@ -1,21 +1,23 @@
-import { IsEnum, IsOptional, IsString } from "class-validator";
-import { highscoreCategories, highscoreVocacao } from "../../types/highscoreCriteria";
+import { IsEnum, IsOptional, IsString } from 'class-validator';
+import {
+  highscoreCategories,
+  highscoreVocacao,
+} from '../../types/highscoreCriteria';
 
 export class HighscoreDto {
+  @IsString()
+  @IsOptional()
+  world: string;
 
-    @IsString()
-    @IsOptional()
-    world: string
+  @IsEnum(highscoreCategories)
+  @IsOptional()
+  category: string;
 
-    @IsEnum(highscoreCategories)
-    @IsOptional()
-    category: string
+  @IsEnum(highscoreVocacao)
+  @IsOptional()
+  vocacao: string;
 
-    @IsEnum(highscoreVocacao)
-    @IsOptional()
-    vocacao: string
-
-    @IsString()
-    @IsOptional()
-    guild: string
+  @IsString()
+  @IsOptional()
+  guild: string;
 }

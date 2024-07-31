@@ -1,38 +1,34 @@
-import { Optional } from "@nestjs/common"
-import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm"
-import { TeamComp } from "../../types/teamComp"
-import { Level } from "../../types/level"
-import { Team } from "../../team/entity/team.entity"
+import { Optional } from '@nestjs/common';
+import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { TeamComp } from '../../types/teamComp';
+import { Level } from '../../types/level';
 
 @Entity()
 export class Evento extends BaseEntity {
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @PrimaryGeneratedColumn()
-    id: number
+  @Column()
+  eventoName: string;
 
-    @Column()
-    eventoName: string
+  @Column({ unique: true })
+  eventoSection: string;
 
-    @Column({unique: true})
-    eventoSection: string
+  @Column()
+  type: string;
 
-    @Column()
-    type: string
+  @Optional()
+  @Column()
+  timeToFinnish: number;
+  //minutes
 
-    @Optional()
-    @Column()
-    timeToFinnish: number 
-    //minutes
+  @Column(() => TeamComp)
+  team: TeamComp;
 
-    @Column(() => TeamComp)
-    team: TeamComp
-    
-    @Column(() => Level)
-    level: Level
+  @Column(() => Level)
+  level: Level;
 
-    @Optional()
-    @Column({nullable: true})
-    spoilerLink: string
-
-
+  @Optional()
+  @Column({ nullable: true })
+  spoilerLink: string;
 }
