@@ -7,11 +7,6 @@ import { AddCharacterDto } from './dto/addCharacter.dto';
 export class UsersController {
   constructor(private usersService: UsersService) {}
 
-  @Post('login')
-  async loginUser(@Body() userDto: UserDto) {
-    return await this.usersService.loginUser(userDto);
-  }
-
   @Post('create')
   async createUser(@Body() userDto: UserDto) {
     return await this.usersService.createUser(userDto);

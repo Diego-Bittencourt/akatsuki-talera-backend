@@ -17,8 +17,12 @@ export class UsersService {
     return createdUser.save();
   }
 
-  async loginUser(userDto: UserDto): Promise<User> {
-    const user = this.userModel.findOne(userDto);
+  async findUser(userName: string): Promise<User> {
+    const user = this.userModel.findOne({
+      where: {
+        userName,
+      },
+    });
     if (user) {
       return user;
     } else {
